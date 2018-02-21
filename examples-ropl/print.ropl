@@ -1,0 +1,18 @@
+fun main(){
+    fmt = "RoP\n"
+    ss = "%c"
+    pp = "you inserted: %c\n"
+    x = 1+1+1
+print:
+    y = "a"
+    z = 0
+    !scanf(ss, @y)
+    !printf(pp, y)
+    x = x+1
+    cmp x, 10
+    jne print
+    !printf(fmt)
+    !exit(z)
+}
+
+

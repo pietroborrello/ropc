@@ -1,0 +1,4 @@
+#!/bin/bash
+./ropc examples-ropl/${1}.ropl vg.bin
+./a.out compiled.bin
+

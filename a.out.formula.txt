@@ -1,0 +1,53 @@
+% free variables:
+R_ESP_1 : BITVECTOR(32);
+R_EAX_5 : BITVECTOR(32);
+mem_9411 : ARRAY BITVECTOR(32) OF BITVECTOR(8);
+% end free variables.
+
+ASSERT(
+0bin1 =
+(LET initial_ESP_9327_0 = R_ESP_1 IN
+(LET initial_mem_9412_1 = mem_9411 IN
+(LET t_9329_2 = mem_9411[R_EAX_5] IN
+(LET mem_9413_3 =
+                   (mem_9411 WITH [R_EAX_5] := BVPLUS(8, t_9329_2,
+                                               R_EAX_5[7:0]))
+                   IN
+(LET R_ESP_9378_4 = BVPLUS(32, R_ESP_1,0hex00000008) IN
+(LET R_EBX_9406_5 =
+                     (LET loadnorm_9414_6 = mem_9413_3 IN
+                     ((((0bin000000000000000000000000 @ loadnorm_9414_6[
+                                                        BVPLUS(32, R_ESP_9378_4,
+                                                        0hex00000000)])|
+                       (((0bin000000000000000000000000 @ loadnorm_9414_6[
+                                                         BVPLUS(32, R_ESP_9378_4,
+                                                         0hex00000001)]) << 8)[31:0]))|
+                      (((0bin000000000000000000000000 @ loadnorm_9414_6[
+                                                        BVPLUS(32, R_ESP_9378_4,
+                                                        0hex00000002)]) << 16)[31:0]))|
+                     (((0bin000000000000000000000000 @ loadnorm_9414_6[
+                                                       BVPLUS(32, R_ESP_9378_4,
+                                                       0hex00000003)]) << 24)[31:0])))
+                     IN
+(LET final_EBX_9410_7 = R_EBX_9406_5 IN
+IF (NOT(final_EBX_9410_7=
+(LET loadnorm_9415_8 = initial_mem_9412_1 IN
+((((0bin000000000000000000000000 @ loadnorm_9415_8[BVPLUS(32, BVPLUS(32, 
+                                                              initial_ESP_9327_0,
+                                                              0hex00000008),
+                                                   0hex00000000)])|
+  (((0bin000000000000000000000000 @ loadnorm_9415_8[BVPLUS(32, BVPLUS(32, 
+                                                               initial_ESP_9327_0,
+                                                               0hex00000008),
+                                                    0hex00000001)]) << 8)[31:0]))|
+ (((0bin000000000000000000000000 @ loadnorm_9415_8[BVPLUS(32, BVPLUS(32, 
+                                                              initial_ESP_9327_0,
+                                                              0hex00000008),
+                                                   0hex00000002)]) << 16)[31:0]))|
+(((0bin000000000000000000000000 @ loadnorm_9415_8[BVPLUS(32, BVPLUS(32, 
+                                                             initial_ESP_9327_0,
+                                                             0hex00000008),
+                                                  0hex00000003)]) << 24)[31:0]))))) THEN 0bin1 ELSE 0bin0 ENDIF)))))))
+);
+QUERY(FALSE);
+COUNTEREXAMPLE;

@@ -1,0 +1,15 @@
+% free variables:
+R_EBP_0 : BITVECTOR(32);
+R_EDI_3 : BITVECTOR(32);
+% end free variables.
+
+ASSERT(
+0bin1 =
+(LET initial_EDI_11231_0 = R_EDI_3 IN
+(LET initial_EBP_11232_1 = R_EBP_0 IN
+(LET final_EBP_11359_2 = R_EBP_0 IN
+IF (NOT(final_EBP_11359_2=
+(initial_EBP_11232_1&initial_EDI_11231_0))) THEN 0bin1 ELSE 0bin0 ENDIF)))
+);
+QUERY(FALSE);
+COUNTEREXAMPLE;
