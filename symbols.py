@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from pwn import *
 a = ELF('a.out', False)
 sym = a.symbols
