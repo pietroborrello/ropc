@@ -6,13 +6,16 @@ open Ast (* for types *)
 open Cdefs
 open Analysis
 open Unix
+open Sys
 
 let fUNC_MAP = Hashtbl.create 1024
 
-let _ =
+let load_func_symbols fn =
     let (pr1, pw1) = Unix.pipe () in
     let (pr2, pw2) = Unix.pipe () in
-    let pid = Unix.create_process "symbols.py" [|"symbols.py"|] pr1 pw2 Unix.stderr in
+    let ropc_path = Sys.getenv("ROPC_PATH") in
+    let symbols_exe = ropc_path ^ "symbols.py" in 
+    let pid = Unix.create_process symbols_exe [|symbols_exe; fn|] pr1 pw2 Unix.stderr in
     let echo_in = Unix.out_channel_of_descr pw1 in
     let echo_out = Unix.in_channel_of_descr pr2 in
     let line = input_line echo_out in
@@ -757,6 +760,7 @@ let compile prog container =
         else ()
     in
     let GContainer(fn, (data_s, data_e), gmetas) = container in
+    let _ = load_func_symbols fn in
     let gadgets = get_gadgets gmetas in
     let prefix, suffix, stack_ptr, frame_ptr = global_prefix_suffix data_s data_e in
     (* Swap AssignTable with Assign (const).
